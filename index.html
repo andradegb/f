@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Foguetinho </title>
+    <style>
+        body
+        {
+            width: 100%;
+            height: 150vh;
+            background-image: linear-gradient(0deg,blue,white,black);
+            overflow: hidden;
+        }
+        .foguete
+        {
+            position: absolute;
+            top: 660px;
+            left: 910px;
+
+        }
+        .lua
+        {
+            position: absolute;
+            top: 600px;
+            left: 660px;
+            margin-left: -500px;
+        }
+    </style>
+</head>
+<body>
+    
+    <img src="lua.png" class="lua" width="100%">
+    <img id="foguete" src="foguete.gif" width="80px" class="foguete">
+
+</body>
+
+<script src="jquery-3.7.0.min.js"></script>
+
+<script>
+
+    data = new Date()
+    tempo_inicial = data.getTime()
+    
+    document.onkeydown = Pega_Tecla;
+    
+    function Pega_Tecla(e) 
+    {   
+        e = e || window.event;
+    
+        tecla = e.keyCode;
+        console.log(tecla); // MOSTRA O CÓDIGO DA TECLA PRESSIONADA
+        
+        data = new Date()
+        tempo_final = data.getTime() //time em milissegundos
+        
+        if(tempo_final - tempo_inicial > 1000)
+        
+        {
+            tempo_inicial = tempo_final
+            
+            if(tecla == 37)
+            {
+                x = x - 20
+            }
+            if(tecla == 39)
+            {
+                x = x + 20
+            }
+        }
+    }
+        temporizador = setTimeout(Subir,1000)
+    
+        x = 760
+        y = 20
+        topo =  ""
+        esquerda = ""
+        function Subir()
+        {
+            topo = y + "px"
+            $("#foguete").animate({top: topo},1000)
+            temporizador = null
+            temporizador = setInterval(Descer,1000)
+        }
+        function Descer()
+        {
+            y = y + 80
+            esquerda = x + "px"
+            if(y>600)
+            {
+                y = 600
+            }
+            topo = y + "px"
+            $("#foguete").animate({left:esquerda,top: topo},1000)
+            
+        }
+    </script>
+
+
+</html>
